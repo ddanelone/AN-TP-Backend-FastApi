@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.DS_Store
+.vscode/
+# data/tp4/*.jpg  # Opcional: si las imágenes son muy pesadas, mejor no subirlas al repo, o usar Git LFS. Si son pocas, dejalo comentado.
+salidas_tp4/    # No subimos los csv o png generados, solo el código

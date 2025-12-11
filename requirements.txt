@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+matplotlib
+numpy
+scipy
+sympy
+seaborn
+imageio
+pillow
+pydantic
+pytest
+httpx
