@@ -89,7 +89,7 @@ def get_grafico_error():
     return save_plot_to_buffer(fig)
  
 def get_explicacion():
-    return """
+    return r"""
     **Fundamentación y Conclusiones - Inciso C:**
     
     1. **Verificación 2D:** Extendemos el esquema FTCS a dos dimensiones. La condición de estabilidad es más estricta aquí: $\alpha \le 0.25$. Usamos $\alpha=0.20$.

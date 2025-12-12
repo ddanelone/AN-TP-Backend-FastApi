@@ -78,7 +78,7 @@ def get_grafico_2d():
     return save_plot_to_buffer(fig)
 
 def get_explicacion():
-    return """
+    return r"""
     **Fundamentación y Conclusiones - Inciso D (Gota Circular):**
     
     1. **Validación Cruzada:** Comparamos una simulación 2D completa (malla cartesiana) contra una 1D en coordenadas cilíndricas (referencia teórica por simetría radial).
