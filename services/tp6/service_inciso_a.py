@@ -69,7 +69,7 @@ def get_grafico():
     return save_plot_to_buffer(fig)
  
 def get_explicacion():
-    return """
+    return r"""
     **Fundamentación y Conclusiones - Inciso A:**
     
     1. **Planteo Físico:** Se modela la difusión lineal simple con coeficiente constante ($D_0$). Al ser 1D, representa el flujo en una barra delgada o un medio poroso homogéneo.

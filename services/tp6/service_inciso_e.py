@@ -42,7 +42,7 @@ def get_grafico():
     return save_plot_to_buffer(fig)
 
 def get_explicacion():
-    return """
+    return r"""
     **Fundamentación y Conclusiones - Inciso E (Gota Elíptica):**
     
     1. **Fenómeno Físico:** Partimos de una elipse 2:1. La difusión es impulsada por el gradiente de concentración ($\nabla \theta$).

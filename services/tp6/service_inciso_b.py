@@ -124,7 +124,7 @@ def get_grafico_frente():
     return save_plot_to_buffer(fig)
 
 def get_explicacion():
-    return """
+    return r"""
     **Fundamentación y Conclusiones - Inciso B (El más complejo):**
     
     1. **El Desafío de la No-Linealidad:** A diferencia del caso A, aquí la difusividad $D(\theta)$ depende fuertemente de la humedad. Usamos el modelo de **Van Genuchten** para papel Whatman 1. 

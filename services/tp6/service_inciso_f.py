@@ -72,7 +72,7 @@ def get_grafico_costos():
     return save_plot_to_buffer(fig)
  
 def get_explicacion():
-    return """
+    return r"""
     **Análisis de Costo Computacional (Inciso F):**
     
     1. **Inciso A (1D Lineal):** Instantáneo. Pocos nodos ($N \approx 50$) y problema suave.
