@@ -190,3 +190,10 @@ def obtener_curvas_ajuste(contour, idx, window=15, s=0.0, deg=2):
         res["poly_x"] = res["poly_y"] = None
         
     return res
+
+def pts_xy(cont):
+    """
+    Convierte un contorno de OpenCV a un array (N, 2) de float.
+    Alias conveniente para normalize_contour usado en notebooks.
+    """
+    return normalize_contour(cont)

@@ -16,10 +16,14 @@ from routers.tp2 import inciso_3 as tp2_inciso_3
 # Router TP3
 from routers.tp3 import gases, raices
 
-# Routers TP4 (NUEVO)
+# Routers TP4 
 from routers.tp4 import inciso_1 as tp4_inciso_1
 from routers.tp4 import inciso_2 as tp4_inciso_2 
 from routers.tp4 import inciso_3 as tp4_inciso_3 
+
+# Routers TP5
+from routers.tp5 import inciso_1 as tp5_inciso_1
+from routers.tp5 import inciso_2 as tp5_inciso_2   
 
 # CORS
 origins = [
@@ -56,7 +60,11 @@ app.include_router(tp2_inciso_3.router, prefix="/api/tp2")
 app.include_router(raices.router, prefix="/api/tp3")
 app.include_router(gases.router, prefix="/api/tp3")
 
-# TP4 (NUEVO)
+# TP4
 app.include_router(tp4_inciso_1.router, prefix="/api/tp4")
 app.include_router(tp4_inciso_2.router, prefix="/api/tp4")
 app.include_router(tp4_inciso_3.router, prefix="/api/tp4")
+
+# TP5
+app.include_router(tp5_inciso_1.router, prefix="/api/tp5")
+app.include_router(tp5_inciso_2.router, prefix="/api/tp5")
