@@ -12,21 +12,22 @@ b) Estimar la energía cinética de la gota y discutir su conservación.
 """
 
 EXPLICACION = """
-🔹 Análisis de Variables Auxiliares:
+🔹 ANÁLISIS DE VARIABLES AUXILIARES
 
-1. **Factor de Esparcimiento ($S_f$):**
-   Muestra la relación entre qué tan ancha es la gota respecto a su altura. 
-   - Un aumento rápido indica el aplastamiento inicial (impacto).
-   - Las oscilaciones posteriores muestran la vibración de la gota buscando el equilibrio.
+1. FACTOR DE ESPARCIMIENTO (Sf):
+   Relación ancho/alto de la gota.
+   • El pico inicial muestra el aplastamiento máximo.
+   • Las ondas posteriores son la vibración natural amortiguada.
 
-2. **Simetría (Perímetros):**
-   Comparando el perímetro del lado izquierdo con el derecho podemos ver si el impacto fue perfectamente vertical o si hubo inclinación.
-   - Curvas superpuestas = Simetría perfecta.
-   - Divergencia = Asimetría.
+2. SIMETRÍA:
+   Comparación de perímetros izquierdo vs derecho.
+   • Curvas juntas = Impacto simétrico vertical.
+   • Curvas separadas = Impacto oblicuo o irregularidad.
 
-3. **Energía Cinética ($E_c$):**
-   Se calcula como $E_c = \\frac{1}{2} m v_y^2$.
-   - Se observa que la energía cinética **NO se conserva**. Disminuye drásticamente tras el impacto debido a la disipación viscosa y la transferencia a energía superficial (deformación).
+3. ENERGÍA CINÉTICA (Ec):
+   Cálculo: Ec = 0.5 * m * v^2
+   • RESULTADO: La energía cinética cae abruptamente.
+   • CONCLUSIÓN: No hay conservación. La energía se disipa por viscosidad y se almacena como tensión superficial.
 """
 
 def generar_grafico_sf():
