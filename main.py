@@ -25,6 +25,9 @@ from routers.tp4 import inciso_3 as tp4_inciso_3
 from routers.tp5 import inciso_1 as tp5_inciso_1
 from routers.tp5 import inciso_2 as tp5_inciso_2   
 
+# Routers TP6
+from routers.tp6 import incisos as tp6_inciso_1
+
 # CORS
 origins = [
     "http://localhost:3000",
@@ -68,3 +71,6 @@ app.include_router(tp4_inciso_3.router, prefix="/api/tp4")
 # TP5
 app.include_router(tp5_inciso_1.router, prefix="/api/tp5")
 app.include_router(tp5_inciso_2.router, prefix="/api/tp5")
+
+# TP6
+app.include_router(tp6_inciso_1.router, prefix="/api/tp6")
