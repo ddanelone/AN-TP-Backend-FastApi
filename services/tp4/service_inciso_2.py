@@ -14,18 +14,18 @@ c) Analizar si el ángulo de contacto obtenido corresponde a un ángulo dinámic
 EXPLICACION = """
 🔹 Análisis de Métodos de Ajuste (2.a):
 
-1. **Splines Cúbicos (UnivariateSpline):**
-   - **Ventaja:** Se adaptan localmente a la curvatura de la gota sin asumir una forma global. Son ideales para capturar deformaciones sutiles cerca de la base.
-   - **Configuración:** Se usó un factor de suavizado bajo (s=0.0) para interpolar fielmente los puntos detectados.
+1. Splines Cúbicos (UnivariateSpline):
+   - Ventaja: Se adaptan localmente a la curvatura de la gota sin asumir una forma global. Son ideales para capturar deformaciones sutiles cerca de la base.
+   - Configuración: Se usó un factor de suavizado bajo (s=0.0) para interpolar fielmente los puntos detectados.
 
-2. **Polinomios de Mínimos Cuadrados (Polyfit):**
-   - **Ventaja:** Filtran mejor el ruido de pixelado si se elige un grado bajo (Grado 2 o 3).
-   - **Desventaja:** Pueden no capturar cambios bruscos de curvatura si la ventana de puntos es muy grande.
-   - **Elección:** Se utilizó grado 2 en una ventana local de 15 puntos.
+2. Polinomios de Mínimos Cuadrados (Polyfit):
+   - Ventaja: Filtran mejor el ruido de pixelado si se elige un grado bajo (Grado 2 o 3).
+   - Desventaja: Pueden no capturar cambios bruscos de curvatura si la ventana de puntos es muy grande.
+   - Elección: Se utilizó grado 2 en una ventana local de 15 puntos.
 
 🔹 Análisis Dinámico vs Estático (2.c):
 Se observa que el ángulo varía significativamente en el tiempo (ver gráfico), oscilando y amortiguándose.
-➡ **Conclusión:** Es un **Ángulo de Contacto Dinámico**.
+➡ Conclusión: Es un Ángulo de Contacto Dinámico.
 El sistema no está en equilibrio termodinámico; la línea de contacto se mueve (avanza/retrocede) debido a la inercia de la caída y la oscilación posterior de la gota.
 """
 
