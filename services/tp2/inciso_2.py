@@ -60,14 +60,14 @@ def ocultar_imagen_en_fft():
     estego = np.clip(estego, 0, 255).astype(np.uint8)
     Image.fromarray(estego).save(IMG_ESTEGANOGRAFICA, format='TIFF')
 
-    return f"✅ Imagen '{IMG_OCULTA}' ocultada correctamente en '{IMG_ESTEGANOGRAFICA}'. Total bits (c/ redundancia): {len(bits_rep)}"
+    return f"Imagen '{IMG_OCULTA}' ocultada correctamente en '{IMG_ESTEGANOGRAFICA}'. Total bits (c/ redundancia): {len(bits_rep)}"
 
 # === Decodificador ===
 def extraer_imagen_de_fft():
     global _ultima_posiciones
 
     if _ultima_posiciones is None:
-        return "❌ Primero debe ejecutarse el ocultamiento para obtener las posiciones"
+        return "Primero debe ejecutarse el ocultamiento para obtener las posiciones"
 
     estego = cargar_grises(IMG_ESTEGANOGRAFICA)
     oculta_original = cargar_grises(IMG_OCULTA)
@@ -97,9 +97,9 @@ def extraer_imagen_de_fft():
     ecm = np.mean((oculta_original.astype(np.int32) - pixels.astype(np.int32))**2)
 
     return (
-        f"🎯 Imagen recuperada correctamente como '{IMG_RECUPERADA}'\n"
-        f"✅ Coincidencia total de píxeles: {iguales}/{total} ({porcentaje_igual:.2f}%)\n"
-        f"📉 Error cuadrático medio (ECM): {ecm:.2f}"
+        f"Imagen recuperada correctamente como '{IMG_RECUPERADA}'\n"
+        f"Coincidencia total de píxeles: {iguales}/{total} ({porcentaje_igual:.2f}%)\n"
+        f"Error cuadrático medio (ECM): {ecm:.2f}"
     )
 
 # === Funciones de visualización (devuelven rutas) ===
@@ -118,7 +118,7 @@ def get_recuperada_path():
 # === Texto enriquecido para endpoints informativos ===
 
 CONSIGNA_FFT = """
-🎯 Consigna del inciso 2: Esteganografía por Transformada de Fourier 2D
+Consigna del inciso 2: Esteganografía por Transformada de Fourier 2D
 
 Se solicita ocultar una imagen monocromática dentro de otra utilizando la Transformada de Fourier 2D.
 Se debe aplicar una codificación sobre los coeficientes de la imagen portadora para introducir, con redundancia, los bits de la imagen a ocultar. Luego, debe implementarse el decodificador correspondiente para verificar la calidad de recuperación de la imagen oculta.

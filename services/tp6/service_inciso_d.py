@@ -8,7 +8,23 @@ from services.tp6.core import processor
 _cache_d = None
 
 def get_consigna():
-    return "d) Resuelva en 2D una gota circular y verifique comparando con la solución 1D en coordenadas cilíndricas. Trate la singularidad en r=0 con cuidado."
+    return r"""
+**Inciso (d): Simetría Radial y Coordenadas Cilíndricas**
+
+Una forma eficiente de validar códigos 2D es simular fenómenos con simetría radial (como una gota circular) y compararlos con un modelo 1D simplificado en coordenadas cilíndricas:
+
+$$ \frac{\partial\theta}{\partial t} = \frac{1}{r} \frac{\partial}{\partial r} \left( r D \frac{\partial\theta}{\partial r} \right) $$
+
+**El desafío de la singularidad:**
+En el centro ($r=0$), el término $1/r$ diverge. Físicamente, por simetría, aplicamos la regla de L'Hôpital obteniendo:
+
+$$ \lim_{r \to 0} \frac{1}{r} \frac{\partial \theta}{\partial r} = \frac{\partial^2 \theta}{\partial r^2} \quad \Rightarrow \quad \frac{\partial\theta}{\partial t} \bigg|_{r=0} = 2D \frac{\partial^2 \theta}{\partial r^2} $$
+
+---
+
+**Consigna:**
+Simule la evolución de una gota circular en una grilla cartesiana 2D completa y verifique que el perfil radial coincide con la solución de referencia 1D cilíndrica.
+"""
 
 def simular_1D_cilindrico(Lr, R_gota, h, T_final, D_val):
     start = time.time()
@@ -79,15 +95,14 @@ def get_grafico_2d():
 
 def get_explicacion():
     return r"""
-    **Fundamentación y Conclusiones - Inciso D (Gota Circular):**
-    
-    1. **Validación Cruzada:** Comparamos una simulación 2D completa (malla cartesiana) contra una 1D en coordenadas cilíndricas (referencia teórica por simetría radial).
-    
-    2. **El Problema de la Singularidad en $r=0$:**
-       En coordenadas cilíndricas, el término $1/r$ explota en el centro.
-       - **Solución:** Aplicamos la regla de L'Hôpital. En el centro, la difusión ocurre "el doble de rápido" geométricamente. La ecuación cambia a $\partial \theta / \partial t = 2 D (\partial^2 \theta / \partial r^2)$.
-    
-    3. **Conclusión:**
-       - El perfil radial de la solución 2D coincide con la referencia 1D.
-       - **Isotropía:** El mapa de calor muestra un círculo perfecto. Esto significa que nuestra malla cuadrada no distorsiona la física; la difusión viaja igual en diagonales que en los ejes (no hay anisotropía numérica significativa).
-    """
+### Fundamentación y Conclusiones - Inciso D
+
+**1. El Problema de la Singularidad ($r=0$):**
+En coordenadas cilíndricas, el término $\frac{1}{r} \frac{\partial \theta}{\partial r}$ explota en el centro.
+* **Solución:** Aplicamos la regla de L'Hôpital. Por simetría, la pendiente en el centro es cero. Geométricamente, la difusión ocurre "el doble de rápido" en el nodo central:
+$$ \lim_{r \to 0} \frac{1}{r} \frac{\partial \theta}{\partial r} = \frac{\partial^2 \theta}{\partial r^2} \implies \frac{\partial \theta}{\partial t} = 2 D \frac{\partial^2 \theta}{\partial r^2} $$
+
+**2. Validación de Isotropía:**
+* El perfil radial extraído de la malla cuadrada 2D coincide casi perfectamente con la referencia 1D cilíndrica.
+* **Mapa de Calor:** Se observa un círculo perfecto. Esto confirma que nuestra discretización cartesiana no introduce **anisotropía numérica** significativa (la gota no se "cuadratiza").
+"""

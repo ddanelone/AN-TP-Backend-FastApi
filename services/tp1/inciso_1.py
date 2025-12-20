@@ -119,17 +119,17 @@ Durante el análisis de EEG, distintas bandas de frecuencia están asociadas a d
 
 Bandas cerebrales típicas:
 
-• Delta (0.5 – 4 Hz): asociada a sueño profundo. Puede aumentar en condiciones patológicas.
-• Theta (4 – 8 Hz): típica de estados de somnolencia o meditación.
-• Alfa (8 – 13 Hz): presente en reposo con ojos cerrados, típica de un cerebro sano.
-• Beta (13 – 30 Hz): asociada a concentración o estrés. Suele reducirse en episodios convulsivos.
-• Gamma (>30 Hz): involucrada en procesos cognitivos complejos.
+• Delta (0.5 – 4 Hz): asociada a sueño profundo. Puede aumentar en condiciones patológicas.\n
+• Theta (4 – 8 Hz): típica de estados de somnolencia o meditación.\n
+• Alfa (8 – 13 Hz): presente en reposo con ojos cerrados, típica de un cerebro sano.\n
+• Beta (13 – 30 Hz): asociada a concentración o estrés. Suele reducirse en episodios convulsivos.\n
+• Gamma (>30 Hz): involucrada en procesos cognitivos complejos.\n
 
-En pacientes epilépticos se observa:
+En pacientes epilépticos se observa:\n
 
-✔️ En etapa interictal: reducción en alfa y aumento de theta o delta.
-✔️ Durante una convulsión: el EEG se vuelve caótico, con actividad abrupta en varias bandas, particularmente en la gama baja (delta y theta) y picos irregulares en otras.
-✔️ La frecuencia de corte elegida (40 Hz) se basa en la observación de que las bandas cerebrales más relevantes para el diagnóstico y análisis de epilepsia se encuentran por debajo de este valor, permitiendo eliminar ruido de alta frecuencia que no aporta información diagnóstica.
+✔️ En etapa interictal: reducción en alfa y aumento de theta o delta.\n
+✔️ Durante una convulsión: el EEG se vuelve caótico, con actividad abrupta en varias bandas, particularmente en la gama baja (delta y theta) y picos irregulares en otras.\n
+✔️ La frecuencia de corte elegida (40 Hz) se basa en la observación de que las bandas cerebrales más relevantes para el diagnóstico y análisis de epilepsia se encuentran por debajo de este valor, permitiendo eliminar ruido de alta frecuencia que no aporta información diagnóstica.\n
 
 🔍 Conclusión:
 El análisis espectral permite identificar estas diferencias, y justificar el uso de un filtro pasa bajos con corte en 40 Hz, ya que concentra la mayoría de la actividad cerebral relevante en epilepsia.

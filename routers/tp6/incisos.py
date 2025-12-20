@@ -2,7 +2,8 @@ from fastapi import APIRouter
 from fastapi.responses import PlainTextResponse, StreamingResponse
 from services.tp6 import service_inciso_a, service_inciso_b, service_inciso_c, service_inciso_d, service_inciso_e, service_inciso_f
 
-router = APIRouter(prefix="/api/tp6", tags=["TP6"])
+# CORRECCIÓN: Quitamos el prefix="/api/tp6" aquí. Main.py ya lo pone.
+router = APIRouter(tags=["TP6"])
 
 # --- INCISO A ---
 @router.get("/inciso-a/consigna", response_class=PlainTextResponse)
@@ -32,6 +33,9 @@ def b_graph1(): return StreamingResponse(service_inciso_b.get_grafico_perfiles()
 
 @router.get("/inciso-b/grafico-boltzmann", response_class=StreamingResponse)
 def b_graph2(): return StreamingResponse(service_inciso_b.get_grafico_frente(), media_type="image/png")
+
+@router.get("/inciso-b/grafico-boltzmann-zoom", response_class=StreamingResponse)
+def b_graph3(): return StreamingResponse(service_inciso_b.get_grafico_zoom(), media_type="image/png")
 
 # --- INCISO C ---
 @router.get("/inciso-c/consigna", response_class=PlainTextResponse)

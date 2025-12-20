@@ -1,6 +1,14 @@
-from fastapi import APIRouter
-from fastapi.responses import PlainTextResponse
-from services.tp1.inciso_2 import CONSIGNA2, EXPLICACION_INCISO_2, PROBLEMAS_INCISO_2
+
+# routers/tp1/inciso_2.py
+# routers/tp1/inciso_2.py
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import PlainTextResponse, Response
+from services.tp1.inciso_2 import (
+    CONSIGNA2, 
+    EXPLICACION_INCISO_2, 
+    PROBLEMAS_INCISO_2,
+    generar_grafico_zoom_img
+)
 
 router = APIRouter(
     prefix="/inciso-2",
@@ -27,8 +35,25 @@ def obtener_problemas_inciso_2():
 
 @router.get(
     "/consigna",
-    summary="Consigna  resolver",
+    summary="Consigna a resolver",
     response_class=PlainTextResponse
 )
 def obtener_consigna():
     return CONSIGNA2
+
+@router.get(
+    "/grafico-zoom",
+    summary="Gráfico de detalle (Zoom 1s)",
+    description="Devuelve una imagen PNG comparando la señal original vs filtrada en el primer segundo de registro.",
+    responses={
+        200: {"content": {"image/png": {}}},
+        500: {"description": "Error al generar el gráfico o archivos no encontrados"}
+    },
+    response_class=Response
+)
+def obtener_grafico_zoom():
+    img_buf = generar_grafico_zoom_img()
+    if img_buf is None:
+        raise HTTPException(status_code=500, detail="No se pudieron cargar los archivos de señales (Signal_x.txt). Verifique la ruta DATA_PATH en el servicio.")
+    
+    return Response(content=img_buf.getvalue(), media_type="image/png")

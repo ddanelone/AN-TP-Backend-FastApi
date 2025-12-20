@@ -8,7 +8,7 @@ from .numerical import taylor3_solver, abm4_solver, sistema_gota
 from scipy.integrate import solve_ivp
 from ..tp4.core import processor as tp4_processor # Reutilizamos TP4!
 
-CSV_PATH = os.path.join("data", "centro_vs_tiempo.csv")
+CSV_PATH = os.path.join("data/tp5", "centro_vs_tiempo.csv")
 
 # Constantes físicas para texto y simulación
 MASA = 1.6e-8
