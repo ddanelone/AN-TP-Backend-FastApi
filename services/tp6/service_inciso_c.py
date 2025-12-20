@@ -8,7 +8,25 @@ from services.tp6.core import processor
 _cache_c = None
 
 def get_consigna():
-    return "c) Verifique una implementación de diferencias finitas en 2D con D constante contra una solución analítica (p. ej. solución en un rectángulo con condiciones de Dirichlet/Neumann conocidas). Mostrar convergencia en norma L2 al refinar mallas 2D."
+    return r"""
+**Inciso (c): Difusión en 2D y Análisis de Convergencia**
+
+Extendemos el problema a dos dimensiones espaciales. La ecuación de difusión lineal isotrópica se convierte en:
+
+$$ \frac{\partial\theta}{\partial t} = D_0 \left( \frac{\partial^2\theta}{\partial x^2} + \frac{\partial^2\theta}{\partial y^2} \right) $$
+
+Para validar solvers multidimensionales, es crucial analizar el orden de convergencia del error numérico al refinar la malla (disminuir $\Delta x$).
+
+---
+
+**Consigna:**
+
+Implemente el esquema de diferencias finitas en un dominio cuadrado 2D. Realice una **Prueba de Convergencia de Malla**:
+
+1. Calcule el error global usando la **Norma $L^2$** contra una solución analítica de variables separables:
+   $$ ||E||_{L^2} = \sqrt{ \sum ( \theta_{num} - \theta_{exacta} )^2 \Delta x \Delta y } $$
+2. Demuestre que el método posee convergencia cuadrática ($Error \propto \Delta x^2$).
+"""
 
 def _run_c():
     start_time = time.time()
@@ -43,34 +61,79 @@ def _get_data():
     return _cache_c
 
 def get_console():
+    """
+    Genera un reporte en formato Markdown estilo vectorial 
+    para analizar la convergencia de malla en FDM 2D.
+    """
     d = _get_data()
+    logs = d["logs"]
+
+    # 1. Preparamos las listas de datos formateados
+    #    (Extraemos columnas verticales a filas horizontales)
     
-    # Formateo de tabla con ancho fijo para que se vea perfecta en consola
-    # Usamos f-strings con alineación (^ centrado, < izquierda, > derecha)
+    list_N = [str(r['N']) for r in logs]
     
-    sep_line = "+" + "-"*9 + "+" + "-"*14 + "+" + "-"*16 + "+"
-    header   = f"| {'N':^7} | {'dx (h)':^12} | {'Error L2':^14} |"
+    # Notación científica para valores muy chicos
+    list_dx = [f"{r['dx']:.2e}" for r in logs]
+    list_dt = [f"{r['dt']:.2e}" for r in logs]
+    list_err = [f"{r['err']:.2e}" for r in logs]
     
-    out = [
-        "Ejecutando Inciso C...",
-        "   --- Ejecutando Prueba de Convergencia ---",
-        sep_line,
-        header,
-        sep_line
-    ]
-    
-    for r in d['logs']:
-        # Fila de datos principales
-        row = f"| {r['N']:^7} | {r['dx']:^12.4f} | {r['err']:^14.3e} |"
-        out.append(row)
-        out.append(sep_line)
+    # 2. Calculamos Ratios y Diagnóstico
+    list_ratios = []
+    list_status = []
+    prev_err = None
+
+    for r in logs:
+        current_err = r["err"]
         
-        # Detalles técnicos adicionales debajo de cada fila (opcional, para más info)
-        out.append(f"  > Config: dt={r['dt']:.5f}, Nt={r['Nt']}, alpha={r['a']:.2f}")
-        out.append("") # Línea en blanco para separar iteraciones
+        if prev_err is None:
+            # Nivel base (no hay con qué comparar)
+            list_ratios.append(" — ")
+            list_status.append("🔹 Base")
+        else:
+            ratio = prev_err / current_err
+            list_ratios.append(f"{ratio:.2f}")
+            
+            # Lógica de semáforo según convergencia esperada (orden 2 -> ratio ~4)
+            if ratio > 3.5:
+                list_status.append("✅ Opt")  # Convergencia cuadrática
+            elif ratio > 2.0:
+                list_status.append("⚠️ Sub")  # Convergencia lenta
+            else:
+                list_status.append("❌ Baja") # Problemas
         
-    out.append(f"Convergencia completada en {d['elapsed']:.2f} segundos.")
-    return "\n".join(out)
+        prev_err = current_err
+
+    # 3. Función helper para armar el "vector" visual
+    def armar_vector(items):
+        return "`[ " + " | ".join(items) + " ]`"
+
+    # 4. Construcción del Reporte Markdown
+    out = "### 🏗️ Convergencia de Malla (FDM 2D)\n\n"
+    
+    out += "**📏 Resolución de Malla ($N$):**\n"
+    out += armar_vector(list_N) + "\n\n"
+    
+    out += "**📐 Espaciado Espacial ($dx$) [m]:**\n"
+    out += armar_vector(list_dx) + "\n\n"
+    
+    out += "**⏱️ Paso Temporal ($dt$) [s]:**\n"
+    out += armar_vector(list_dt) + "\n\n"
+    
+    out += "**📉 Error Global L2:**\n"
+    out += armar_vector(list_err) + "\n\n"
+    
+    out += "---\n"
+    
+    out += "**🔄 Ratio de Convergencia (Esperado $\\approx 4.0$):**\n"
+    out += armar_vector(list_ratios) + "\n\n"
+    
+    out += "**🧐 Diagnóstico:**\n"
+    out += armar_vector(list_status) + "\n\n"
+    
+    out += f"> **Tiempo Total de Simulación:** {d['elapsed']:.2f} s"
+    
+    return out
 
 def get_grafico_error():
     d = _get_data()
@@ -90,16 +153,19 @@ def get_grafico_error():
  
 def get_explicacion():
     return r"""
-    **Fundamentación y Conclusiones - Inciso C:**
-    
-    1. **Verificación 2D:** Extendemos el esquema FTCS a dos dimensiones. La condición de estabilidad es más estricta aquí: $\alpha \le 0.25$. Usamos $\alpha=0.20$.
-    
-    2. **Prueba de Convergencia:**
-       El objetivo no es solo ver "si da parecido", sino cuantificar **cuánto mejora** al refinar la malla.
-       - Usamos la **Norma $L^2$** para medir el error global en todo el cuadrado.
-    
-    3. **Conclusión del Gráfico Log-Log:**
-       - La pendiente de la recta de error es aproximadamente **2**.
-       - Esto confirma que nuestro esquema tiene **Convergencia Cuadrática** ($O(h^2)$). Es decir, si reducimos el tamaño de la celda a la mitad, el error baja cuatro veces.
-       - Esto valida matemáticamente que la matriz de diferencias finitas está bien construida.
-    """
+### Fundamentación y Conclusiones - Inciso C
+
+**1. Análisis de Estabilidad (CFL 2D):**
+Al trabajar en 2D, la energía fluye en dos direcciones simultáneamente. La restricción de estabilidad es más estricta:
+$$ \alpha = \frac{D \Delta t}{\Delta x^2} \le 0.25 $$
+
+**2. Prueba de Convergencia:**
+El objetivo es validar matemáticamente el código. Al graficar el **Error Global $L^2$** en escala logarítmica contra el espaciado $\Delta x$, obtenemos una recta.
+
+* **Pendiente observada:** La pendiente de la curva azul es $m \approx 2$.
+* **Significado:** Esto confirma que el método tiene un orden de error $O(\Delta x^2)$.
+$$ ||E||_{L^2} \approx C \cdot (\Delta x)^2 $$
+
+**3. Interpretación Práctica:**
+La convergencia cuadrática implica que **duplicar la resolución de la malla** (ej. pasar de $N=20$ a $N=40$) reduce el error numérico aproximadamente **4 veces**. Esto se evidencia en la tabla de consola (columna *Ratio*).
+"""

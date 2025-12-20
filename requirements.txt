@@ -10,3 +10,4 @@ pillow
 pydantic
 pytest
 httpx
+opencv-python-headless

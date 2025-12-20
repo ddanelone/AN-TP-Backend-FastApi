@@ -8,7 +8,27 @@ from services.tp6.core import processor
 _cache_a = None
 
 def get_consigna():
-    return "a) Suponga una difusividad constante D(theta)=D0 y verifique la implementación de diferencias finitas en 1D contra una solución analítica."
+    return r"""
+**Introducción: Flujo en Medios Porosos (Ecuación de Richards)**
+
+El transporte de líquidos en sustratos porosos es fundamental en procesos de secado, reciclaje y análisis de suelos. A diferencia de los grandes acuíferos, aquí la gravedad suele ser despreciable frente a las fuerzas capilares.
+
+La **Ecuación de Richards** describe el movimiento de agua en medios insaturados. En su forma de difusión no lineal, se expresa como:
+
+$$ \frac{\partial\theta}{\partial t} = \nabla \cdot (D(\theta)\nabla \theta) $$
+
+Donde:
+* $\theta$: Contenido volumétrico de agua (Saturación).
+* $D(\theta)$: Difusividad efectiva, que puede ser altamente no lineal.
+
+---
+
+**Consigna del Inciso (a):**
+
+Suponga una **difusividad constante** $D(\theta) = D_0$ (Linealización).
+
+Verifique la implementación numérica utilizando el método de **Diferencias Finitas en 1D** comparando los resultados contra una solución analítica exacta (ecuación de difusión lineal o del calor).
+"""
 
 def _run_a():
     start_time = time.time()
@@ -70,14 +90,19 @@ def get_grafico():
  
 def get_explicacion():
     return r"""
-    **Fundamentación y Conclusiones - Inciso A:**
-    
-    1. **Planteo Físico:** Se modela la difusión lineal simple con coeficiente constante ($D_0$). Al ser 1D, representa el flujo en una barra delgada o un medio poroso homogéneo.
-    
-    2. **Estrategia Numérica:** Utilizamos el esquema FTCS (Forward Time, Central Space). Es explícito, lo que significa que el estado futuro depende solo del presente.
-       - **Condición de Estabilidad:** El punto crítico aquí es el número de Courant ($\alpha$). Para que la solución no explote (diverja), necesitamos estrictamente $\alpha \le 0.5$. En nuestra simulación, con $\alpha=0.45$, garantizamos estabilidad.
-    
-    3. **Conclusión:**
-       - La comparación visual es perfecta: los puntos numéricos se montan sobre la curva analítica.
-       - El error $L_\infty$ (máximo error absoluto) es del orden de $10^{-4}$, lo cual valida que la discretización de las derivadas (espacial de 2do orden) es correcta.
-    """
+**Fundamentación y Conclusiones - Inciso A (Validación 1D)**
+
+1. **Esquema Numérico FTCS:**
+   Utilizamos el método *Forward Time, Central Space*. La discretización espacial de la segunda derivada introduce un error de truncamiento de orden $O(\Delta x^2)$.
+
+2. **Criterio de Estabilidad:**
+   Al ser un esquema explícito, el paso de tiempo está limitado por el número de Courant ($\alpha$). Para garantizar que la solución no diverja, se debe cumplir estrictamente:
+   
+   $$ \alpha = \frac{D_0 \Delta t}{\Delta x^2} \le 0.5 $$
+   
+   En nuestra simulación usamos $\alpha = 0.45$, lo que asegura estabilidad y positividad.
+
+3. **Análisis de Resultados:**
+   - La comparación visual muestra una coincidencia casi exacta.
+   - El error global medido en norma infinito ($L_\infty \approx 10^{-4}$) confirma que el algoritmo resuelve correctamente la ecuación de calor clásica.
+"""
